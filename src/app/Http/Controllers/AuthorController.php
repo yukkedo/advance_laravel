@@ -41,7 +41,7 @@ class AuthorController extends Controller
     }
 
     // データベースにデータの更新を保存(データ更新処理)
-    public function update(Request $request)
+    public function update(AuthorRequest $request)
     {
         $form = $request->all();
         unset($form['_token']);
@@ -57,18 +57,18 @@ class AuthorController extends Controller
     }
 
     // 削除対象のidを取得し、idに対応するレコードをDBから削除する
-    // public function remove(Request $request)
-    // {
-    //     Author::find($request->id)->delete();
-    //     return redirect('/');
-    // }
-
     public function remove(Request $request)
     {
-        dd($request->all()); // 追加
         Author::find($request->id)->delete();
         return redirect('/');
     }
+
+    // public function remove(Request $request)
+    // {
+    //     // dd($request->all()); // 追加
+    //     Author::find($request->id)->delete();
+    //     return redirect('/');
+    // }
 
     // name属性を利用した検索
     public function find()
@@ -96,5 +96,17 @@ class AuthorController extends Controller
             'item' => $author,
         ];
         return view('author.binds', $data);
+    }
+
+    public function verror()
+    {
+        return view('verror');
+    }
+
+    // authorsテーブルのデータを返すアクション　リレーション確認
+    public function relate(Request $request)
+    {
+        $items = Author::all();
+        return view('author.index', ['items' => $items]);
     }
 }
