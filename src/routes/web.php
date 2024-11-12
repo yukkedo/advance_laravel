@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthorController;
+use App\Http\Controllers\BookController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,3 +40,15 @@ Route::post('find', [AuthorController::class, 'search']);
 // 暗黙の結合
 Route::
 get('/author/{author}', [AuthorController::class, 'bind']);
+
+Route::get('/verror', [AuthorController::class, 'verror']);
+
+// bookcontrollerに対応するルーディング
+Route::prefix('book')->group(function (){
+    Route::get('/', [BookController::class, 'index']);
+    Route::get('/add', [BookController::class, 'add']);
+    Route::post('/add', [BookController::class, 'create']);
+});
+
+// relateアクション
+Route::get('/relation', [AuthorController::class, 'relate']);

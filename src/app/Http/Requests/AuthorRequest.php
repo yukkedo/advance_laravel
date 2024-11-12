@@ -41,4 +41,10 @@ class AuthorRequest extends FormRequest
             'nationality.required' => '国籍を入力してください',
         ];
     }
+
+    // バリデーション失敗時のルーディング
+    protected function getRedirectUrl()
+    {
+        return 'verror';
+    }
 }
