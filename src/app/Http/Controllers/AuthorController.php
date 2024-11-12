@@ -104,9 +104,23 @@ class AuthorController extends Controller
     }
 
     // authorsテーブルのデータを返すアクション　リレーション確認
+    // public function relate(Request $request)
+    // {
+    //     $items = Author::all();
+    //     return view('author.index', ['items' => $items]);
+    // }
+
+    // リレーションの有無の確認
     public function relate(Request $request)
     {
         $items = Author::all();
         return view('author.index', ['items' => $items]);
+
+        $hasItems = Author::has('book')->get();
+        // リレーションの値を持つ
+        $noItems = Author::doesntHave('book')->get();
+        // リレーションの値を持たない
+        $param = ['hasItems' => $hasItems, 'noItems' => $noItems];
+        return view('author.index', $param);
     }
 }
